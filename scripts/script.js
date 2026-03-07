@@ -17,7 +17,19 @@ const fetchData = (id) => {
             displayCards(data.data);
         });
 }
+const loadWordDetails = async (id) =>{
+    const url = `https://openapi.programming-hero.com/api/word/${id}`;
+    const res = await fetch(url);
+    const details = await res.json();
+    displayWordDetails(details.data);
 
+}
+
+const displayWordDetails = (word) =>{
+    const detailsBox = document.getElementById('details-container');
+    // detailsBox.innerHTML=" ";
+    document.getElementById('my_modal_5').showModal();
+}
 const removeActive =()=>{
     const lessonButtons = document.querySelectorAll('.lesson-btn');
     lessonButtons.forEach(btn=>btn.classList.remove("active"));
@@ -43,8 +55,8 @@ const displayCards = (words) => {
             <p class="font-medium text-xl">Meaning /Pronounciation</p>
             <h3 class="font-bangla font-semibold text-3xl text-black/65">${word.meaning ? word.meaning : 'পাওয়া যায় নি'} / ${word.pronunciation ? word.pronunciation : 'পাওয়া যায় নি'}</h3>
             <div class="flex justify-between w-full mt-10">
-                <div class="w-14 h-14 flex items-center justify-center bg-[#1A91FF]/20"><button onclick="my_modal_5.showModal()" class="text-2xl fa-solid fa-circle-info"></button></div>
-                <div class="w-14 h-14 flex items-center justify-center bg-[#1A91FF]/20"><button onclick="my_modal_5.showModal()" class="text-2xl fa-solid fa-volume-high"></button></div>
+                <div class="w-14 h-14 flex items-center justify-center bg-[#1A91FF]/20"><button onclick="loadWordDetails(${word.id})" class="text-2xl fa-solid fa-circle-info"></button></div>
+                <div class="w-14 h-14 flex items-center justify-center bg-[#1A91FF]/20"><button class="text-2xl fa-solid fa-volume-high"></button></div>
             </div>
         </div>
         `
